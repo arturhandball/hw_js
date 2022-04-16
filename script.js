@@ -73,15 +73,11 @@
   В функцию нужно передавать два параметра: текст, массив запрещенных слов.*/
 
   const words = function(text, array) {
-
-    let newText = text.split(/[\.\ \,]?\s/gi);
-    console.log(newText)
-
-      for(let i = 0; i < array.length; i++) {
-          while (newText.indexOf(array[i]) > 0) {
-          newText.splice(newText.indexOf(array[i]),1,'#'.repeat(array[i].length))}
-      }
-      console.log(newText.join(' '))
+    array.forEach(function(word){
+      let regexp = new RegExp(word, 'gmi');
+      text = text.replace(regexp, '#'.repeat(word.length));
+    })
+    console.log(text)
   }
 
   words('этот жестокий мир. съел всю его душу мир',['мир', 'съел'])
