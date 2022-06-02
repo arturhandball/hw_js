@@ -12,7 +12,7 @@ let DOM = function() {
         return element.innerHTML;
     }
     this.search = (element, selector) => { 
-        return element.querySelector(selector);
+        return element.querySelectorAll(selector);
     }
     this.addClass = (element, className) => {
         element.classList.add(className);
@@ -23,7 +23,7 @@ let DOM = function() {
     this.toggleClass = (element, className) => {
         element.classList.toggle(className);
     }
-    this.hasClass = (element, className) => {//для проверки существования класса в элементе (должен вернуть true или false);
+    this.hasClass = (element, className) => {
         let result = false;
         element.classList.forEach((elem) => {
             console.log(elem, className);
@@ -36,6 +36,6 @@ let DOM = function() {
         else beforeElement.before(newElement);
     }
     this.on = (element, eventName, funcName) => {
-       element.addEventListener(`${eventName}`, funcName(event))
+       element.addEventListener(`${eventName}`, funcName)
     }
 }
