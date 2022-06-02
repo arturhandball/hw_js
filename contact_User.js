@@ -54,7 +54,7 @@ class Contacts{
         let user = new User(addData);
         this.#data.push(user)
         this.#lastID++
-        console.log(user)
+
     }
 
     edit(ID, editData){
@@ -145,23 +145,32 @@ class ContactsApp extends Contacts{
         const usersList = document.createElement('div');
         usersList.classList.add('usersList')
 
+        const divBtn = document.createElement('div')
+        divBtn.classList.add('divBtn')
+
+
         data.forEach((contact)=>{
             const dataContacts = contact.get();
             const contactInfo = document.createElement('ul')
             contactInfo.innerHTML = `
-            <li> Name: 
+            <li> <span>Name:</span>  
             ${dataContacts.name}</li>
-            <li> Phone: 
+            <li> <span>Phone:</span>
             ${dataContacts.phone}</li>
-            <li> Email: 
+            <li> <span>Email:</span>
             ${dataContacts.email}</li>
-            <li> Address: 
+            <li> <span>Address:</span>
             ${dataContacts.adres}</li>
             
            `
 
             const removeButton = document.createElement('button');
-            removeButton.innerText = 'Remove'
+            // removeButton.innerText = 'Remove'
+            removeButton.classList.add('remove')
+            const imgR = document.createElement('img')
+            imgR.setAttribute('src','./remove.svg')
+            imgR.setAttribute('alt','#')
+            removeButton.append(imgR)
             removeButton.addEventListener('click', (e) => {
 
                 this.onRemove(dataContacts.id);
@@ -170,7 +179,12 @@ class ContactsApp extends Contacts{
             })
 
             const editButton = document.createElement('button');
-            editButton.innerText = 'Edit';
+            // editButton.innerText = 'Edit';
+            editButton.classList.add('edit')
+            const imgE = document.createElement('img')
+            imgE.setAttribute('src','./edit.svg')
+            imgE.setAttribute('alt','#')
+            editButton.append(imgE)
             editButton.addEventListener('click', (e) => {
                     this.onEdit(dataContacts.id)
                 })
@@ -178,7 +192,9 @@ class ContactsApp extends Contacts{
 
                 usersList.append(contactInfo)
                 contactInfo.append(removeButton, editButton)
+                
             });
+
 
         this.#app.append(inputName, inputPhone, inputEmail, inputAdres, addButton, usersList)
         
@@ -234,7 +250,11 @@ class ContactsApp extends Contacts{
 
         const btnSaveElem = document.createElement('button');
         btnSaveElem.classList.add('savebtn');
-        btnSaveElem.innerHTML = 'Save';
+        // btnSaveElem.innerHTML = 'Save';
+        const imgS = document.createElement('img')
+        imgS.setAttribute('src','./save.png')
+        imgS.setAttribute('alt','#')
+        btnSaveElem.append(imgS)
 
         let name = document.createElement('span')
         name.innerHTML = 'Name'
@@ -280,3 +300,4 @@ class ContactsApp extends Contacts{
 }
 
 let a = new ContactsApp();
+
