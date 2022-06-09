@@ -97,10 +97,13 @@ class Contacts{
 
 class ContactsApp extends Contacts{
     #app;
+
     constructor (){
         super();
 
-        this.update();
+        this.storage
+        // this.getData()
+        this.update()
     }
 
     onAdd(userData){
@@ -147,6 +150,8 @@ class ContactsApp extends Contacts{
 
         const divBtn = document.createElement('div')
         divBtn.classList.add('divBtn')
+
+
 
 
         data.forEach((contact)=>{
@@ -205,17 +210,106 @@ class ContactsApp extends Contacts{
             if (inputName.value == '' && inputEmail.value == '' && inputAdres.value == '' && inputPhone.value == '') {
                 return;
             } else {
-            const userData = {
+                const userData = {
                 name:inputName.value,
                 phone:inputPhone.value,
                 email:inputEmail.value,
                 adres:inputAdres.value,
                 
             }
-            this.onAdd(userData)}
+
+            this.onAdd(userData)
+           
+        }
+        })
+
+
+        let dataTmp = data.map(elem =>{
+            return elem.get()
+        })
+
+       this.storage  = dataTmp; 
+
+
+       
+    };
+
+    set storage(value){
+      
+        value = JSON.stringify(value)
+
+        localStorage.setItem('contacts', value)
+      
+    }
+
+    get storage(){
+        let dataLocal = localStorage.getItem('contacts')
+        dataLocal = JSON.parse(dataLocal);
+
+        let date = new Date(Date.now() + 5000);
+        date = date.toUTCString();
+        document.cookie = 'storageExpiration=true; expires=' + date
+    
+        if (!dataLocal || dataLocal.length == 0) return; 
+       
+        dataLocal.forEach(item => {
+            console.log(item)
+            this.add(item);
+        });
+
+
+         this.update()
+
+      
+
+    }
+
+    check(){
+        window.addEventListener('load', function(){
+            if (document.cookie.includes('storageExpiration') == false) {
+                localStorage.removeItem('contacts')
+            }
         })
        
     }
+
+    // getData() {
+    //     let dataAPI = localStorage.getItem('contacts')
+    //     if (!dataAPI || dataAPI.length == 0) {
+    //         fetch('https://jsonplaceholder.typicode.com/users')
+    //     .then(response => {
+    //         return response.json()
+    //     })
+    //     .then(result=> {
+    //         let resultTmp = result.map(item => {
+    //             return {
+    //                 name: item.name,
+    //                 phone: item.phone,
+    //                 email: item.email,
+    //                 adres: `city ${item.address.city} street ${item.address.street}`,
+    //             }
+
+    //         })
+    //         resultTmp = JSON.stringify(resultTmp)
+
+    //         localStorage.setItem('contacts', resultTmp)
+
+    //         this.getData()
+  
+    //     })
+    //     return;
+    //     }
+
+    //     dataAPI = JSON.parse(dataAPI);
+    //     if (!dataAPI || dataAPI.length == 0) return;
+
+    //     dataAPI.forEach(item => {
+    //         this.add(item);
+    //     });
+        
+
+    //     this.update()
+    // }
 
     onRemove(id){
         this.remove(id);
@@ -297,7 +391,9 @@ class ContactsApp extends Contacts{
         })
     }
 
+
 }
 
 let a = new ContactsApp();
+
 
