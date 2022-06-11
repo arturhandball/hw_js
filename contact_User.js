@@ -47,7 +47,26 @@ class Contacts{
     #data = [];
     #lastID = 0;
 
-    constructor(){}
+    async getData() {
+        
+        let dataApi = await  fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => {
+            return response.json()
+        })
+        .then(result=> {
+            result.forEach(item => {
+                const user =  {
+                    name: item.name,
+                    phone: item.phone,
+                    email: item.email,
+                    adres: `city ${item.address.city} street ${item.address.street}`,
+                }
+                this.add(user)
+            })
+           
+        })
+        return dataApi;
+        }
 
     add(addData){
         addData = {...addData, ...{id: this.#lastID}}
@@ -101,17 +120,23 @@ class ContactsApp extends Contacts{
     constructor (){
         super();
 
-        this.storage
-        // this.getData()
+       
+        this.getStorage(). then(() => this.update())
+  
         this.update()
     }
 
     onAdd(userData){
         this.add(userData);
+        this.setStorage()
         this.update();
     }
 
     update(){
+
+        this.clearStorage()
+
+
         if (document.querySelector('.contacts')) document.querySelector('#contacts').remove()
         let container = document.querySelector('.app')
         this.#app = document.createElement('div')
@@ -221,98 +246,54 @@ class ContactsApp extends Contacts{
             this.onAdd(userData)
            
         }
-        })
-
-
-        let dataTmp = data.map(elem =>{
-            return elem.get()
-        })
-
-       this.storage  = dataTmp; 
-
-
+        })        
        
     };
 
-    set storage(value){
-      
-        value = JSON.stringify(value)
+    clearStorage() {
+        if (document.cookie.includes('storageExpiration') == false) {
+            localStorage.removeItem('contacts')
+        }
+    }
 
-        localStorage.setItem('contacts', value)
+    setStorage(){
+
+        let dataTmp = this.get().map(elem =>{
+            return elem.get()
+        })
+      
+        dataTmp = JSON.stringify(dataTmp)
+
+        localStorage.setItem('contacts', dataTmp)
+
+
+        let date = new Date(Date.now() + 864000000);
+        date = date.toUTCString();
+        document.cookie = 'storageExpiration=true; expires=' + date
       
     }
 
-    get storage(){
-        let dataLocal = localStorage.getItem('contacts')
-        dataLocal = JSON.parse(dataLocal);
+    async getStorage(){
 
-        let date = new Date(Date.now() + 5000);
-        date = date.toUTCString();
-        document.cookie = 'storageExpiration=true; expires=' + date
+        let dataLocal = localStorage.getItem('contacts')
     
-        if (!dataLocal || dataLocal.length == 0) return; 
+        if (!dataLocal || dataLocal == '[]') {
+            dataLocal = await  this.getData();
+            return dataLocal
+        } 
+
+        dataLocal = JSON.parse(dataLocal);
        
         dataLocal.forEach(item => {
             console.log(item)
             this.add(item);
         });
 
-
-         this.update()
-
-      
-
     }
-
-    check(){
-        window.addEventListener('load', function(){
-            if (document.cookie.includes('storageExpiration') == false) {
-                localStorage.removeItem('contacts')
-            }
-        })
-       
-    }
-
-    // getData() {
-    //     let dataAPI = localStorage.getItem('contacts')
-    //     if (!dataAPI || dataAPI.length == 0) {
-    //         fetch('https://jsonplaceholder.typicode.com/users')
-    //     .then(response => {
-    //         return response.json()
-    //     })
-    //     .then(result=> {
-    //         let resultTmp = result.map(item => {
-    //             return {
-    //                 name: item.name,
-    //                 phone: item.phone,
-    //                 email: item.email,
-    //                 adres: `city ${item.address.city} street ${item.address.street}`,
-    //             }
-
-    //         })
-    //         resultTmp = JSON.stringify(resultTmp)
-
-    //         localStorage.setItem('contacts', resultTmp)
-
-    //         this.getData()
-  
-    //     })
-    //     return;
-    //     }
-
-    //     dataAPI = JSON.parse(dataAPI);
-    //     if (!dataAPI || dataAPI.length == 0) return;
-
-    //     dataAPI.forEach(item => {
-    //         this.add(item);
-    //     });
-        
-
-    //     this.update()
-    // }
 
     onRemove(id){
         this.remove(id);
+        this.setStorage()
         this.update();
     }
 
@@ -386,6 +367,7 @@ class ContactsApp extends Contacts{
             editform.remove();
 
             this.edit(id, newData)
+            this.setStorage()
             this.update()
         
         })
@@ -395,5 +377,11 @@ class ContactsApp extends Contacts{
 }
 
 let a = new ContactsApp();
-
+// window.setInterval(function(){
+//     if (document.cookie.includes('storageExpiration') == false) {
+//         console.log('delete coockie')
+//         localStorage.removeItem('contacts')
+//         console.log('delete local')
+//     }
+// }, 100)
 
