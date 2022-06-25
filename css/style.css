@@ -1,0 +1,371 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app {
+    max-width: 1240px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.app__header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background-color: rgba(10, 94, 136, 0.382);
+    border: 2px solid #111422;
+    margin: 15px 0;
+    padding: 10px;
+}
+
+.header__logo {
+    margin-right: 80px;
+    margin-left: 60px;
+}
+
+.header__logo > a {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+.header__logo > a > img {
+    width: 100px;
+    height: 100px;
+}
+
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav > ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+
+}
+
+.nav > ul > li {
+    margin-left: 40px;
+}
+
+.nav > ul > li > a {
+    text-decoration: none;
+    font-size: 20px;
+    color: #f9f9f9;
+}
+
+.nav > ul > li > a:hover {
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.basket {
+    margin-right: 50px;
+    margin-left: auto;
+    position: relative;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+}
+
+.basket > a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.basket__amount {
+    position: absolute;
+    top: -5px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #c94f0d;
+    color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home__app {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin: 30px auto;
+    grid-gap: 20px 10px;
+    display: grid;
+}
+
+.home__app__items {
+    width: 300px;
+    padding: 10px;
+    list-style: none;
+    margin: 0 auto;
+    border: 1px solid #DCE0EB;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #D6E2E0;
+}
+
+.home__app__items > li {
+    margin-bottom: 10px;
+}
+
+.home__app__items > li > a >img {
+    width: 200px;
+    height: 200px;
+}
+
+.home__app__items > li:nth-child(1) {
+    font-size: 20px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.home__app__items > li:nth-child(4) {
+    color: red;
+    font-weight: 700;
+    font-style: oblique;
+    display: block;
+    text-align: center;
+    margin-top: auto;
+}
+
+.add__btn {
+    width: 60%;
+    padding: 10px;
+    border: none;
+    background-color: #c94f0d;
+    border-radius: 10px;
+    color: #f9f9f9;
+    font-size: 16px;
+    font-style: unset;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.add__btn.click,
+.add__btn_product.click {
+    background-color: #555666;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgba(10, 94, 136, 0.382);
+    border: 2px solid #111422;
+    margin-top: 20px;
+}
+
+.footer__list {
+    list-style: none;
+    margin-right: 50px;
+}
+
+.footer__list > li {
+    margin-bottom: 15px;
+    color: #000;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.footer__list > li > img {
+    margin-right: 5px;
+}
+
+.footer__list > li > a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.app__about > h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.paragraph {
+    font-weight: 300;
+    line-height: 20px;
+}
+
+.about__img {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.product {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.basket__ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #555666;
+    width: 80%;
+    list-style: none;
+    position: relative;
+}
+
+.basket__ul > li > img {
+    width: 80px;
+    height: 80px;
+}
+
+.basket__ul > li:nth-child(2) {
+    width: 200px;
+    height: 100%;
+    margin-left: 50px;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 700;
+    margin-left: 200px;
+}
+
+.basket__button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.basket__button.minus {
+    background-image: url(./minus.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: auto;
+}
+
+.basket__button.plus {
+    background-image: url(./plus.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.basket__ul > input {
+    text-align: center;
+    width: 40px;
+    height: 35px;
+    font-weight: bold;
+    border: 2px solid #c94f0d;
+    margin: 0 20px;
+}
+
+.price__product {
+    color: #ec0808;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+    margin: 0 25px;
+}
+
+.basket__remove {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    background-image: url(./remove.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 50px;
+}
+
+.total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+    width: 80%;
+}
+
+.total__btn {
+    width: 150px;
+    height: 50px;
+    border: none;
+    background-color: #FD5D5B;
+    color: #f9f9f9;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.price__all_product {
+    margin-left: 50px;
+    color: #FD5D5B;
+    font-size: 25px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.product_card {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.product__items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product__items li {
+    margin-bottom: 15px;
+}
+
+.product__items li:nth-child(1) {
+    font-size: 24px;
+    font-weight: bold;
+    font-style: italic;
+    color: #555666;
+}
+
+.product__items li:nth-child(3) {
+    font-size: 18px;
+    color: #555666;
+}
+
+.product__items li:nth-child(4) {
+    color: #FD5D5B;
+    font-size: 25px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.add__btn_product {
+    width: 60%;
+    padding: 10px;
+    border: none;
+    background-color: #c94f0d;
+    border-radius: 10px;
+    color: #f9f9f9;
+    font-size: 16px;
+    font-style: unset;
+    font-weight: 700;
+    cursor: pointer;
+}
