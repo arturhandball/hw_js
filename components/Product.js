@@ -5,6 +5,7 @@ class Page {
         this.elem.classList.add('product_card')
 
         this.items = document.cookie.slice(5).split(',') 
+        if (this.items[0] == '') this.items = []
 
         let id = location.hash;
         id = id.split('/');
